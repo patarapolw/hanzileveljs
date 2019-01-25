@@ -16,8 +16,7 @@ let mainConfig = {
         extensions: ['.js', '.json', '.ts'],
     },
     module: {
-        rules: [
-            {
+        rules: [{
                 // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
                 test: /\.(ts)$/,
                 exclude: /node_modules/,
@@ -39,8 +38,15 @@ let mainConfig = {
                     name: '[path][name].[ext]',
                 },
             },
+            {
+                test: /\.(html|pug|txt|json)$/,
+                use: 'raw-loader'
+            }
         ],
     },
+    externals: {
+        sqlite3: 'commonjs sqlite3'
+    }
 };
 
 let rendererConfig = {
@@ -60,8 +66,7 @@ let rendererConfig = {
         extensions: ['.js', '.json', '.ts', '.tsx'],
     },
     module: {
-        rules: [
-            {
+        rules: [{
                 // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
                 test: /\.(ts|tsx)$/,
                 exclude: /node_modules/,
@@ -94,13 +99,22 @@ let rendererConfig = {
         ],
     },
     plugins: [
-        new CopyWebpackPlugin([
-            {from: './public/*.*', to: '[name].[ext]'},
-            {from: './database/*.db', to: 'database/[name].[ext]'}
+        new CopyWebpackPlugin([{
+                from: './public/*.*',
+                to: '[name].[ext]'
+            },
+            {
+                from: './database/*.db',
+                to: 'database/[name].[ext]'
+            }
         ])
     ],
+    externals: {
+        sqlite3: 'commonjs sqlite3'
+    }
 };
 
 module.exports = {
-    mainConfig, rendererConfig
+    mainConfig,
+    rendererConfig
 };

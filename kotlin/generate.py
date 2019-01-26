@@ -77,6 +77,12 @@ class CreateDatabase:
         );
         """)
     
+    def build(self):
+        self.cedict()
+        self.tatoeba()
+        self.cjkrad()
+        self.add_frequency()
+    
     def cedict(self):
         c = self.srcDb["cedict"].execute("SELECT * FROM cedict")
         for r in c:
@@ -117,9 +123,9 @@ class CreateDatabase:
         c = cjkrad.execute("SELECT * FROM character")
         for r in c:
             self.dstDb.execute("""
-            INSERT INTO token (entry)
-            VALUES (?)
-            """, (r["character"],))
+            INSERT INTO token (id, entry)
+            VALUES (?, ?)
+            """, (r["id"], r["character"],))
         
         self.dstDb.commit()
 
@@ -166,4 +172,5 @@ class CreateDatabase:
 
 
 if __name__ == "__main__":
-    CreateDatabase().add_frequency()
+    db = CreateDatabase()
+    db.build()

@@ -9,5 +9,5 @@ object Config {
         ignoreIfMissing = true
     }
 
-    val db = Sql2o("jdbc:sqlite::resource:data.db")
+    val db = Sql2o("jdbc:sqlite::resource:data.db", null, null)
 }

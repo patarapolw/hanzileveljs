@@ -1,6 +1,7 @@
 package hanzileveljs
 
 import org.junit.jupiter.api.DynamicTest
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 
 class TatoebaTest {
@@ -14,5 +15,10 @@ class TatoebaTest {
         DynamicTest.dynamicTest("Search for $input") {
             println(tatoeba[input])
         }
+    }
+
+    @Test
+    fun testRandom() {
+        println(tatoeba.random())
     }
 }

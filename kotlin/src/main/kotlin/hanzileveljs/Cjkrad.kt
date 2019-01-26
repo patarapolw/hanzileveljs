@@ -16,7 +16,7 @@ class Cjkrad {
             INNER JOIN $part AS p ON p.token_id = c.id
             INNER JOIN token AS s ON p.${part}_id = s.id
             WHERE c.entry = :s
-            ORDER BY s.frequency ASC
+            ORDER BY s.frequency DESC
         """.trimIndent())
                 .addParameter("s", s)
                 .executeAndFetch(Entry::class.java)

@@ -10,6 +10,7 @@
     "bootstrap": "^4.2.1",
     "chinese-to-pinyin": "^0.1.8",
     "electron-is-running-in-asar": "^1.0.0",
+    "get-port": "^4.1.0",
     "jquery": "^3.3.1",
     "jquery-contextmenu": "^2.8.0",
     "popper.js": "^1.14.6",
@@ -17,7 +18,9 @@
     "xregexp": "^4.2.4"
   },
   "devDependencies": {
+    "@types/get-port": "^4.0.1",
     "@types/jest": "^23.3.13",
+    "concurrently": "^4.1.0",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^2.1.0",
     "electron": "^4.0.2",
@@ -38,12 +41,14 @@
   },
   "scripts": {
     "start": "electron ./dist/main.bundle.js",
-    "dev": "rimraf dist && webpack --watch --config ./webpack.dev.js --progress --colors",
-    "compile-dev": "rimraf dist && webpack --config ./webpack.dev.js --progress --colors",
-    "compile": "rimraf dist && webpack --config ./webpack.prod.js --progress --colors",
+    "dev": "rimraf dist && concurrently 'webpack --watch --config ./webpack.dev.js --progress --colors' 'yarn run kt:serve'",
+    "watch": "rimraf dist && webpack --watch --config ./webpack.dev.js --progress --colors",
+    "compile:dev": "rimraf dist && webpack --config ./webpack.dev.js --progress --colors",
+    "compile": "rimraf dist && webpack --config ./webpack.prod.js --progress --colors && yarn run kt:compile",
     "build": "rimraf build && yarn run compile && electron-builder",
-    "postinstall": "install-app-deps",
-    "test": "jest"
+    "test": "jest",
+    "kt:serve": "cd kotlin && ./gradlew run",
+    "kt:compile": "cd kotlin && ./gradlew shadowJar"
   },
   "build": {
     "appId": "io.github.patarapolw.hanzilevel",
@@ -56,7 +61,17 @@
     },
     "files": [
       "dist/**/*",
-      "package.json"
+      "package.json",
+      "!**/*.jar"
+    ],
+    "extraFiles": [
+      {
+        "from": "dist",
+        "to": ".",
+        "filter": [
+          "**/*.jar"
+        ]
+      }
     ]
   }
 }

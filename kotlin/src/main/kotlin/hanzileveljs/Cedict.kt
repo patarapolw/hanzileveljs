@@ -42,20 +42,22 @@ class Cedict {
     fun searchChinese(s: String): List<CedictEntry> {
         return Config.db.open().createQuery("""
             $baseQuery
-            WHERE simplified LIKE :s OR traditional LIKE :s
+            WHERE simplified LIKE :s1 OR traditional LIKE :s2
             ORDER BY frequency DESC
         """.trimIndent())
-                .addParameter("s", "%$s%")
+                .addParameter("s1", "%$s%")
+                .addParameter("s2", "%$s%")
                 .executeAndFetch(CedictEntry::class.java)
     }
 
     fun searchChineseMatch(s: String): List<CedictEntry> {
         return Config.db.open().createQuery("""
             $baseQuery
-            WHERE simplified = :s OR traditional = :s
+            WHERE simplified = :s1 OR traditional = :s2
             ORDER BY frequency DESC
         """.trimIndent())
-                .addParameter("s", s)
+                .addParameter("s1", s)
+                .addParameter("s2", s)
                 .executeAndFetch(CedictEntry::class.java)
     }
 
@@ -82,5 +84,13 @@ class Cedict {
     operator fun get(s: String): List<CedictEntry> = when(Regex("\\p{IsHan}").find(s)) {
         null -> searchNonChinese(s)
         else -> searchChinese(s)
+    }
+
+    fun random(): CedictEntry {
+        return Config.db.open().createQuery("""
+            $baseQuery
+            ORDER BY RANDOM() LIMIT 1
+        """.trimIndent())
+                .executeAndFetchFirst(CedictEntry::class.java)
     }
 }

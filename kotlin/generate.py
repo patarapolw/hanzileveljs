@@ -10,7 +10,7 @@ class CreateDatabase:
         "cjkrad": sqlite3.connect(srcRoot + "cjkrad4j.db"),
         "tatoeba": sqlite3.connect(srcRoot + "tatoeba.db")
     }
-    dstDb = sqlite3.connect("database/data.db")
+    dstDb = sqlite3.connect("/Users/patarapolw/GitHubProjects/hanzileveljs/kotlin/src/main/resources/data.db")
 
     def __init__(self):
         for v in self.srcDb.values():

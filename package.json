@@ -7,7 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/xregexp": "^3.0.29",
-    "bootstrap": "^4.2.1",
+    "bootstrap": "^4.5.0",
     "chinese-to-pinyin": "^0.1.8",
     "electron-is-running-in-asar": "^1.0.0",
     "get-port": "^4.1.0",

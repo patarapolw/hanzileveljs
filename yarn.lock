@@ -1141,10 +1141,10 @@ character-parser@^2.1.1:
   dependencies:
     is-regex "^1.0.3"
 
-chinese-to-pinyin@^0.1.8:
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/chinese-to-pinyin/-/chinese-to-pinyin-0.1.8.tgz#bcb71a70099a84ec8b8c6b2018a5d1ad4320052b"
-  integrity sha512-DrLgVP+4jF/AdBXWdZxfoGAUVZU50IwuSBts8/qM9q2g+5Fyv53Hf87jELqHeIh19TYeQVhSsLTNYo5RqHXRwg==
+chinese-to-pinyin@^0.1.11:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/chinese-to-pinyin/-/chinese-to-pinyin-0.1.11.tgz#b8ae947d47479aa23a2e9b51fe22eef4d4ff8768"
+  integrity sha512-gr0tcpqSJg17g50LKv27HknlviCjCG7JwlJw+j4eA5ITvXtT1QC6VeJ1R8EyDu4eBoj8OD9ihCGuMtgpvHiODQ==
 
 chokidar@^2.0.2:
   version "2.0.4"
